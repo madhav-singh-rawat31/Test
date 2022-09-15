@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'Online-Calculator'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5EF4ABA6D862464CA3071B8D337F7588 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DA8B0782FACB48A5BC7DFE87A7B9EED4 }}
           package: .
