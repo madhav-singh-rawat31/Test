@@ -1,68 +1,28 @@
 <?php
-#Visit https://t4tutorials.com for more tutorials
-if(isset($_POST['sub'])){
-	$num1=$_POST['n1'];
-	$num2=$_POST['n2'];
-	$oprnd=$_POST['sub'];
-	if($oprnd=="+")
-		$ans=$num1+$num2;
-	else if($oprnd=="-")
-		$ans=$num1-$num2;
-	else if($oprnd=="x")
-		$ans=$num1*$num2;
-	else if($oprnd=="/")
-		$ans=$num1/$num2;
-}?>
-<html>
-<head>
-	<style type="text/css">
-		.container
-		{
-			left: 25%;
-			padding: 100px;
-			text-align: center;
-			border: 1px solid green;
-			
-		}
-		input, select {
-  			width: 40%;
-  			padding: 12px 20px;
-  			margin: 8px 0;
-  			display: inline-block;
-  			border: 1px solid #ccc;
-  			border-radius: 4px;
-  			box-sizing: border-box;
-		}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $Operand1=$_POST['Operand1'];
+    $Operand2=$_POST['Operand2'];
+    $Operator=$_POST['Calculate'];
 
-		input[type=submit] {
-  			width: 5%;
- 		 	background-color: #4CAF50;
-  			color: white;
-  			padding: 14px 20px;
-  			margin: 8px 0;
-  			border: none;
-	 	 	border-radius: 4px;
-  			cursor: pointer;
-}
-	</style>
-</head>
-<body>
-<!–– Visit https://t4tutorials.com for more tutorials -->
-<div class="container">
-<form method="post" action="">
-<h1>Simple Calculator</h1>
-<br>
-First Number:<input name="n1" value="">
-<br>
-Second Number:<input name="n2" value="">
-<br>
-<input type="submit" name="sub" value="+">
-<input type="submit" name="sub" value="-">
-<input type="submit" name="sub" value="x">
-<input type="submit" name="sub" value="/">
-<br>
-<br>Result: <input type='text' value="<?php echo $ans; ?>"><br>
-</form>
-	</div>
-</body>
-</html>
+    /*Validation begins from here.*/
+    if($Operand1 == '' || $Operand2 == ''){
+        $Error = "The input values are required.";
+    }
+    elseif (filter_var($Operand1, FILTER_VALIDATE_FLOAT) === false || filter_var($Operand2, FILTER_VALIDATE_FLOAT) === false) {
+        $Error = "The input value must be a number only.";
+    }
+    elseif($Operator=="/" && ($Operand1 == 0 || $Operand2 == 0)){
+        $Error = "Cannot divide by zero.";
+    }
+    else{
+        /*Calculation begins from here.*/
+        if($Operator=="+")
+            $Result=$Operand1+$Operand2;
+        else if($Operator=="-")
+            $Result=$Operand1-$Operand2;
+        else if($Operator=="x")
+            $Result=$Operand1*$Operand2;
+        else if($Operator=="/")
+            $Result=$Operand1/$Operand2;
+    }
+} ?>
